@@ -22,7 +22,7 @@ lazy val `sample-http-gateway` = _project("sample-http-gateway")
 lazy val `sample-common` =
   _project("sample-common")
     .settings(publishing: _*)
-    .settings(libraryDependencies ++= Seq(_akkaHttpCirce, _fusionJsonCirce, _fusionCommon))
+    .settings(libraryDependencies ++= Seq(_akkaHttpCirce, _fusionSecurity, _fusionJsonCirce, _fusionCommon))
 
 def _project(name: String, _base: String = null) =
   Project(id = name, base = file(if (_base eq null) name else _base))
