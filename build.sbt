@@ -7,7 +7,9 @@ scalaVersion in ThisBuild := Dependencies.versionScala
 scalafmtOnCompile in ThisBuild := true
 
 lazy val root =
-  Project("akka-fusion-samples", file(".")).aggregate(`sample-http-gateway`, `sample-common`).settings(noPublish: _*)
+  Project("akka-fusion-samples", file("."))
+    .aggregate(`sample-http-gateway`, `sample-http-server`, `sample-common`)
+    .settings(noPublish: _*)
 
 lazy val `sample-http-gateway` = _project("sample-http-gateway")
   .enablePlugins(JavaAgent)
@@ -18,6 +20,16 @@ lazy val `sample-http-gateway` = _project("sample-http-gateway")
     assemblyJarName in assembly := "sample-http-gateway.jar",
     mainClass in assembly := Some("sample.http.gateway.SampleHttpGatewayApplication"),
     libraryDependencies ++= Seq(_fusionHttp, _fusionHttpGateway))
+
+lazy val `sample-http-server` = _project("sample-http-server")
+  .enablePlugins(JavaAgent)
+  .dependsOn(`sample-common`)
+  .settings(
+    Protobufs.protocVersion,
+    javaAgents += "org.mortbay.jetty.alpn" % "jetty-alpn-agent" % "2.0.9" % "runtime;test",
+    assemblyJarName in assembly := "sample-http-server.jar",
+    mainClass in assembly := Some("sample.http.server.SampleHttpServerApplication"),
+    libraryDependencies ++= Seq(_fusionHttp))
 
 lazy val `sample-common` =
   _project("sample-common")
