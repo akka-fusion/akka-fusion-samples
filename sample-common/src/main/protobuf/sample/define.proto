@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package sample;
+
+message ResultBO {
+    int32 status = 1;
+    string msg = 2;
+    map<string, string> data = 3;
+}

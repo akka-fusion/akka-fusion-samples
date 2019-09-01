@@ -4,7 +4,7 @@
 
     <appender name="console_out" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>${fusion.log.logback.console-pattern:-%d %-5level %fusionEnv %fusionServiceName %fusionServerHost %fusionServerPort [%thread] %logger{36} %line - %msg%n%exception}</pattern>
+            <pattern>${fusion.log.logback.console-pattern:-%d %-5level [%thread] %logger{36} %line - %msg%n%exception}</pattern>
         </encoder>
     </appender>
 
