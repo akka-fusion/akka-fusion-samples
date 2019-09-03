@@ -1,0 +1,27 @@
+syntax = "proto3";
+package sample.scheduler.grpc;
+
+import "sample/scheduler/model/scheduler.proto";
+import "sample/define.proto";
+
+service SchedulerService {
+    // 创建作业并设置调度
+    rpc CreateJob (sample.scheduler.model.JobDTO) returns (sample.scheduler.model.JobBO) {
+    }
+
+    // 取消作业调度
+    rpc CancelJob (sample.scheduler.model.JobCancelDTO) returns (sample.ResultBO) {
+    }
+
+    // 暂停作业调度
+    rpc PauseJob (sample.scheduler.model.JobPauseDTO) returns (sample.ResultBO) {
+    }
+
+    // 恢复作业调度
+    rpc ResumeJob (sample.scheduler.model.JobResumeDTO) returns (sample.ResultBO) {
+    }
+
+    // 获取作业和作业关联的所有调度
+    rpc GetJob (sample.scheduler.model.Key) returns (sample.scheduler.model.JobBO) {
+    }
+}

@@ -8,8 +8,8 @@ object SampleHttpGatewayApplication {
 
   def main(args: Array[String]): Unit = {
     val configuration = Configuration.fromDiscovery()
-    val system        = FusionUtils.createActorSystem(configuration)
-    val route         = new Routes(system).route
+    val system = FusionUtils.createActorSystem(configuration)
+    val route = new Routes(system).route
     FusionHttpServer(system).component.startRouteSync(route)
   }
 }
