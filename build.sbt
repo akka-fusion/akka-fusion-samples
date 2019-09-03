@@ -83,7 +83,7 @@ lazy val `sample-scheduler-job` = _project("sample-scheduler-job")
     libraryDependencies ++= Seq(
         "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf",
         _postgresql,
-        _fusionHttpClient,
+        _fusionHttp,
         _fusionJob) ++ _akkaClusters)
 
 lazy val `sample-log` =
@@ -108,7 +108,8 @@ lazy val `sample-common` =
     .enablePlugins(AkkaGrpcPlugin)
     .settings(publishing: _*)
     .settings(
-      libraryDependencies ++= Seq(
+        PB.protocVersion := "-v371",
+        libraryDependencies ++= Seq(
           "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf",
           _fusionSecurity,
           _fusionJsonCirce,

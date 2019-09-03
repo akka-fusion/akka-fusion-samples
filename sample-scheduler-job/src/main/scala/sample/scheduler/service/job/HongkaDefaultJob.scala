@@ -6,9 +6,7 @@ import akka.http.scaladsl.model.HttpEntity
 import akka.http.scaladsl.model.HttpMethods
 import akka.http.scaladsl.model.HttpRequest
 import com.typesafe.scalalogging.StrictLogging
-import fusion.core.extension.FusionCore
 import fusion.core.util.FusionUtils
-import fusion.http.util.HttpUtils
 import fusion.job.ScheduleJob
 import helloscala.common.util.StringUtils
 import io.circe.Json
@@ -25,8 +23,8 @@ class HongkaDefaultJob extends ScheduleJob with StrictLogging {
   }
 
   private def performCallback(context: JobExecutionContext): Unit = {
+    import sample.scheduler.util.CirceSupport._
     import io.circe.syntax._
-    import io.circe.generic.auto._
 
     val dataMap = context.getMergedJobDataMap.asScala.mapValues(_.toString)
     val callback = dataMap.getOrElse(JobConstants.CALLBACK, "")

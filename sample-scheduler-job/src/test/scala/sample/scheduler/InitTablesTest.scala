@@ -2,7 +2,8 @@ package sample.scheduler
 
 import akka.actor.ActorSystem
 import akka.testkit.TestKit
-import fusion.jdbc.{FusionJdbc, JdbcTemplate}
+import fusion.jdbc.FusionJdbc
+import fusion.jdbc.JdbcTemplate
 import fusion.test.FusionTestFunSuite
 
 class InitTablesTest extends TestKit(ActorSystem()) with FusionTestFunSuite {

@@ -29,15 +29,13 @@ object Dependencies {
   val _fusionCommon = "com.helloscala.fusion" %% "fusion-common" % versionAkkaFusion
   val _fusionSecurity = "com.helloscala.fusion" %% "fusion-security" % versionAkkaFusion
   val _fusionTest = "com.helloscala.fusion" %% "fusion-test" % versionAkkaFusion
-  val _slickPg = "com.github.tminglei" %% "slick-pg" % versionSlickPg
   val _jwtCore = "com.pauldijou" %% "jwt-core" % versionJwtCore
   val _postgresql = "org.postgresql" % "postgresql" % versionPostgres
-  val _mysql = "mysql" % "mysql-connector-java" % versionMySQL
-  val _caffeine = "com.github.ben-manes.caffeine" % "caffeine" % versionCaffeine
-  val _hanlp = "com.hankcs" % "hanlp" % "portable-1.7.4"
-  val _akkaGrpcRuntime = "com.lightbend.akka.grpc" %% "akka-grpc-runtime" % "0.7.0"
   val _h2Database = "com.h2database" % "h2" % "1.4.199"
 
   val _akkaClusters =
-    Seq("com.typesafe.akka" %% "akka-cluster" % versionAkka, "com.typesafe.akka" %% "akka-cluster-tools" % versionAkka)
+    Seq(
+      "com.typesafe.akka" %% "akka-cluster" % versionAkka,
+      "com.typesafe.akka" %% "akka-cluster-tools" % versionAkka,
+      "com.typesafe.akka" %% "akka-discovery" % versionAkka)
 }

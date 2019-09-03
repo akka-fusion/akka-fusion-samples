@@ -6,6 +6,17 @@ import fusion.job.FusionScheduler
 import helloscala.common.IntStatus
 import org.quartz.JobKey
 import org.quartz.TriggerKey
+import sample.ResultBO
+import sample.scheduler.model.JobBO
+import sample.scheduler.model.JobCancelDTO
+import sample.scheduler.model.JobDTO
+import sample.scheduler.model.JobGetDTO
+import sample.scheduler.model.JobPauseDTO
+import sample.scheduler.model.JobResumeDTO
+import sample.scheduler.model.JobTriggerBO
+import sample.scheduler.model.Key
+import sample.scheduler.service.job.HongkaDefaultJob
+import sample.scheduler.util.JobUtils
 
 import scala.collection.JavaConverters._
 
