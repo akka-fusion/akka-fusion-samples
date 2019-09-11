@@ -1,0 +1,11 @@
+syntax = "proto3";
+package sample;
+
+message HelloDTO {
+    string name = 1;
+}
+
+message HelloBO {
+    string name = 1;
+    string result = 2;
+}

@@ -1,6 +1,5 @@
 logLevel := Level.Warn
-
-resolvers += "Typesafe repository".at("http://repo.typesafe.com/typesafe/releases/")
+resolvers += Resolver.bintrayIvyRepo("2m", "sbt-plugins")
 
 addSbtPlugin("com.github.mwz" % "sbt-sonar" % "1.6.0")
 addSbtPlugin("de.heikoseeberger" % "sbt-header" % "5.2.0")
@@ -13,7 +12,8 @@ addSbtPlugin("io.github.jonas" % "sbt-paradox-material-theme" % "0.6.0")
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.0")
 addSbtPlugin("com.lightbend.sbt" % "sbt-javaagent" % "0.1.5") // ALPN agent
 addSbtPlugin("com.lightbend.akka.grpc" % "sbt-akka-grpc" % "0.7.1")
-//addSbtPlugin("com.lightbend.sbt" % "sbt-java-formatter" % "0.4.1")
+//addSbtPlugin("com.lightbend.sbt" % "sbt-java-formatter" % "0.4.4")
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.0.3")
 addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.5")
-addSbtPlugin("io.kamon" % "sbt-kanela-runner" % "2.0.2")
+//addSbtPlugin("io.kamon" % "sbt-kanela-runner" % "2.0.2")
+

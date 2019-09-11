@@ -1,0 +1,18 @@
+syntax = "proto3";
+package sample;
+
+import "sample/model.proto";
+
+service HelloService {
+    rpc SayHello (HelloDTO) returns (HelloBO) {
+    }
+
+    rpc KeepsHello (stream HelloDTO) returns (HelloBO) {
+    }
+
+    rpc KeepsResult (HelloDTO) returns (stream HelloBO) {
+    }
+
+    rpc StreamHellos (stream HelloDTO) returns (stream HelloBO) {
+    }
+}

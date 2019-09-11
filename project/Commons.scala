@@ -64,9 +64,6 @@ object Commons {
           val oldStrategy = (assemblyMergeStrategy in assembly).value
           oldStrategy(x)
       },
-      resolvers ++= Seq(
-          "ihongka.cn snapshot".at("https://artifactory.hongkazhijia.com/artifactory/sbt-release"),
-          "ihongka.cn release".at("https://artifactory.hongkazhijia.com/artifactory/libs-release")),
       fork in run := true,
       fork in Test := true,
       parallelExecution in Test := false) // ++ Environment.settings

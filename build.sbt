@@ -2,9 +2,13 @@ import Commons._
 import Dependencies._
 import Publishing._
 
-scalaVersion in ThisBuild := Dependencies.versionScala
+ThisBuild / scalaVersion := Dependencies.versionScala
 
-scalafmtOnCompile in ThisBuild := true
+ThisBuild / scalafmtOnCompile := true
+
+ThisBuild / resolvers ++= Seq(
+  "hongkazhijia.com sbt-release".at("https://artifactory.hongkazhijia.com/artifactory/sbt-release"),
+  "hongkazhijia.com libs-release".at("https://artifactory.hongkazhijia.com/artifactory/libs-release"))
 
 lazy val root =
   Project("akka-fusion-samples", file("."))
@@ -15,6 +19,7 @@ lazy val root =
       `sample-slick`,
       `sample-jdbc`,
       `sample-scheduler-job`,
+      `sample-grpc`,
       `sample-log`,
       `sample-http-client`,
       `sample-http-server`,
@@ -28,6 +33,7 @@ lazy val `sample-docs` = _project("sample-docs")
     `sample-slick`,
     `sample-jdbc`,
     `sample-scheduler-job`,
+    `sample-grpc`,
     `sample-log`,
     `sample-http-client`,
     `sample-http-server`,
@@ -86,6 +92,20 @@ lazy val `sample-scheduler-job` = _project("sample-scheduler-job")
         _fusionHttp,
         _fusionJob) ++ _akkaClusters)
 
+lazy val `sample-grpc` = _project("sample-grpc")
+  .dependsOn(`sample-common`)
+  .enablePlugins(AkkaGrpcPlugin, JavaAgent)
+  .settings(
+    PB.protocVersion := "-v371",
+    akkaGrpcCodeGeneratorSettings += "server_power_apis",
+    javaAgents += "org.mortbay.jetty.alpn" % "jetty-alpn-agent" % "2.0.9" % "runtime;test",
+    assemblyJarName in assembly := "sample-grpc.jar",
+    mainClass in assembly := Some("sample.grpc.GrpcApplication"),
+    libraryDependencies ++= Seq(
+        "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf",
+        _fusionHttp,
+        _akkaDiscovery))
+
 lazy val `sample-log` =
   _project("sample-log").dependsOn(`sample-common`).settings(libraryDependencies ++= Seq(_fusionLog, _fusionHttp))
 
@@ -108,8 +128,8 @@ lazy val `sample-common` =
     .enablePlugins(AkkaGrpcPlugin)
     .settings(publishing: _*)
     .settings(
-        PB.protocVersion := "-v371",
-        libraryDependencies ++= Seq(
+      PB.protocVersion := "-v371",
+      libraryDependencies ++= Seq(
           "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf",
           _fusionSecurity,
           _fusionJsonCirce,

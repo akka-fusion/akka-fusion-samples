@@ -32,10 +32,11 @@ object Dependencies {
   val _jwtCore = "com.pauldijou" %% "jwt-core" % versionJwtCore
   val _postgresql = "org.postgresql" % "postgresql" % versionPostgres
   val _h2Database = "com.h2database" % "h2" % "1.4.199"
+  val _akkaDiscovery = "com.typesafe.akka" %% "akka-discovery" % versionAkka
 
   val _akkaClusters =
     Seq(
       "com.typesafe.akka" %% "akka-cluster" % versionAkka,
       "com.typesafe.akka" %% "akka-cluster-tools" % versionAkka,
-      "com.typesafe.akka" %% "akka-discovery" % versionAkka)
+      _akkaDiscovery)
 }
