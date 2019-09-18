@@ -18,6 +18,7 @@ object Dependencies {
   val _fusionDiscoveryClient = "com.helloscala.fusion" %% "fusion-discovery-client" % versionAkkaFusion
   val _fusionSlick = "com.helloscala.fusion" %% "fusion-slick" % versionAkkaFusion
   val _fusionMongodb = "com.helloscala.fusion" %% "fusion-mongodb" % versionAkkaFusion
+  val _fusionElasticsearch = "com.helloscala.fusion" %% "fusion-elasticsearch" % versionAkkaFusion
   val _fusionCassandra = "com.helloscala.fusion" %% "fusion-cassandra" % versionAkkaFusion
   val _fusionKafka = "com.helloscala.fusion" %% "fusion-kafka" % versionAkkaFusion
   val _fusionJdbc = "com.helloscala.fusion" %% "fusion-jdbc" % versionAkkaFusion

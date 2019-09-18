@@ -15,7 +15,7 @@ class SampleGrpcAggregate(protected val _system: ExtendedActorSystem) extends Fu
 
   val helloService: HelloServicePowerApi = new HelloServiceImpl()
 
-  val grpcHandlers = HelloServicePowerApiHandler.partial(helloService)
+  val grpcHandlers = List(HelloServicePowerApiHandler.partial(helloService))
 }
 
 object SampleGrpcAggregate extends ExtensionId[SampleGrpcAggregate] with ExtensionIdProvider {

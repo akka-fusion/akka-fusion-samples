@@ -16,6 +16,9 @@ lazy val root =
       `sample-docs`,
       `sample-http-gateway`,
       `sample-discovery`,
+      `sample-kafka`,
+      `sample-mongodb`,
+      `sample-elasticsearch`,
       `sample-slick`,
       `sample-jdbc`,
       `sample-scheduler-job`,
@@ -30,6 +33,9 @@ lazy val `sample-docs` = _project("sample-docs")
   .dependsOn(
     `sample-http-gateway`,
     `sample-discovery`,
+    `sample-kafka`,
+    `sample-mongodb`,
+    `sample-elasticsearch`,
     `sample-slick`,
     `sample-jdbc`,
     `sample-scheduler-job`,
@@ -66,6 +72,15 @@ lazy val `sample-http-gateway` = _project("sample-http-gateway")
     assemblyJarName in assembly := "sample-http-gateway.jar",
     mainClass in assembly := Some("sample.http.gateway.SampleHttpGatewayApplication"),
     libraryDependencies ++= Seq(_fusionHttp, _fusionHttpGateway))
+
+lazy val `sample-mongodb` =
+  _project("sample-mongodb").dependsOn(`sample-common`).settings(libraryDependencies += _fusionMongodb)
+
+lazy val `sample-kafka` =
+  _project("sample-kafka").dependsOn(`sample-common`).settings(libraryDependencies += _fusionKafka)
+
+lazy val `sample-elasticsearch` =
+  _project("sample-elasticsearch").dependsOn(`sample-common`).settings(libraryDependencies += _fusionElasticsearch)
 
 lazy val `sample-discovery` =
   _project("sample-discovery").dependsOn(`sample-common`).settings(libraryDependencies ++= Seq(_fusionDiscoveryClient))
