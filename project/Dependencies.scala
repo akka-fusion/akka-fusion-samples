@@ -1,13 +1,13 @@
 import sbt._
 
 object Dependencies {
-  val versionScala = "2.12.9"
+  val versionScala = "2.12.10"
   val versionScalaLib = "2.12"
   val versionAkka = "2.5.25"
-  val versionAkkaFusion = "1.0.0-SNAPSHOT"
+  val versionAkkaFusion = "1.0.0"
   val versionJwtCore = "2.1.0"
   val versionMySQL = "8.0.16"
-  val versionPostgres = "42.2.5"
+  val versionPostgres = "42.2.8"
   val versionCaffeine = "2.7.0"
   val versionSlickPg = "0.18.0"
   val versionJettyAlpnAgent = "2.0.9"
@@ -18,12 +18,13 @@ object Dependencies {
   val _fusionDiscoveryClient = "com.helloscala.fusion" %% "fusion-discovery-client" % versionAkkaFusion
   val _fusionSlick = "com.helloscala.fusion" %% "fusion-slick" % versionAkkaFusion
   val _fusionMongodb = "com.helloscala.fusion" %% "fusion-mongodb" % versionAkkaFusion
+  val _fusionElasticsearch = "com.helloscala.fusion" %% "fusion-elasticsearch" % versionAkkaFusion
   val _fusionCassandra = "com.helloscala.fusion" %% "fusion-cassandra" % versionAkkaFusion
   val _fusionKafka = "com.helloscala.fusion" %% "fusion-kafka" % versionAkkaFusion
   val _fusionJdbc = "com.helloscala.fusion" %% "fusion-jdbc" % versionAkkaFusion
   val _fusionMail = "com.helloscala.fusion" %% "fusion-mail" % versionAkkaFusion
   val _fusionJob = "com.helloscala.fusion" %% "fusion-job" % versionAkkaFusion
-  val _fusionJsonCirce = "com.helloscala.fusion" %% "fusion-json-circe" % versionAkkaFusion
+  val _fusionJson = "com.helloscala.fusion" %% "fusion-json" % versionAkkaFusion
   val _fusionLog = "com.helloscala.fusion" %% "fusion-log" % versionAkkaFusion
   val _fusionCore = "com.helloscala.fusion" %% "fusion-core" % versionAkkaFusion
   val _fusionCommon = "com.helloscala.fusion" %% "fusion-common" % versionAkkaFusion
