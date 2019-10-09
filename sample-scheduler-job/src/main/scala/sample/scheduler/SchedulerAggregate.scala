@@ -19,6 +19,7 @@ import sample.scheduler.service.SchedulerServiceImpl
 import scala.concurrent.duration._
 
 class SchedulerAggregate private (protected val _system: ExtendedActorSystem) extends FusionExtension {
+
   // 使用Akka Cluster Singleton保证调度服务Actor在集群中只启动并活跃一个
   private val schedulerActor =
     system.actorOf(

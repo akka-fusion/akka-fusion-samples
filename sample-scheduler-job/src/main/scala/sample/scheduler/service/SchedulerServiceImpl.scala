@@ -20,6 +20,7 @@ import scala.concurrent.duration._
 
 class SchedulerServiceImpl(system: ActorSystem) extends SchedulerService {
   implicit private val timeout = Timeout(10.seconds)
+
   private val proxy =
     system.actorOf(ClusterSingletonProxy.props("/user/sample-scheduler", ClusterSingletonProxySettings(system)))
 

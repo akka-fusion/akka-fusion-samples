@@ -21,7 +21,7 @@ class SchedulerRoute(system: ActorSystem) extends AbstractRoute {
     cancelJobRoute
   }
 
-  import sample.scheduler.util.CirceSupport._
+  import fusion.json.json4s.http.Json4sSupport._
 
   def createJobRoute: Route = pathPost("create") {
     entity(as[JobDTO]) { dto =>

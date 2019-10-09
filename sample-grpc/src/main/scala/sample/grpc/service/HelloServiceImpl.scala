@@ -16,6 +16,7 @@ import scala.concurrent.Future
 
 class HelloServiceImpl()(implicit system: ActorSystem, mat: Materializer) extends HelloServicePowerApi {
   import system.dispatcher
+
   override def sayHello(in: HelloDTO, metadata: Metadata): Future[HelloBO] = Future {
     HelloBO(in.name, "result")
   }
