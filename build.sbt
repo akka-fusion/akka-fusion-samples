@@ -147,7 +147,7 @@ lazy val `sample-common` =
       libraryDependencies ++= Seq(
           "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf",
           _fusionSecurity,
-          _fusionJsonCirce,
+          _fusionJson,
           _fusionCommon))
 
 def _project(name: String, _base: String = null) =
