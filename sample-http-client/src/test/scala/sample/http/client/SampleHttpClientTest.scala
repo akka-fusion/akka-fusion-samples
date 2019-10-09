@@ -10,7 +10,9 @@ import fusion.http.FusionHttpServer
 import fusion.http.client.DefaultHttpClient
 import fusion.json.jackson.Jackson
 import fusion.test.FusionTestWordSpec
-import io.circe.Json
+import org.json4s.JsonAST.JObject
+import org.json4s.JsonAST.JString
+import org.json4s.JsonAST.JValue
 import org.scalatest.BeforeAndAfterAll
 
 class SampleHttpClientTest extends TestKit(ActorSystem()) with FusionTestWordSpec with BeforeAndAfterAll {
@@ -19,13 +21,13 @@ class SampleHttpClientTest extends TestKit(ActorSystem()) with FusionTestWordSpe
 
   "HttpClient echo" must {
     "Ok" in {
-      import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport._
+      import fusion.json.json4s.http.Json4sSupport._
       val socketAddress = FusionHttpServer(system).component.socketAddress
       val uri = s"http://${socketAddress.getAddress.getHostAddress}:${socketAddress.getPort}/api/echo"
-      val entity = Json.obj("hello" -> Json.fromString("world"))
+      val entity = JObject("hello" -> JString("world"))
       val result = DefaultHttpClient(system)
         .singleRequest(HttpMethods.POST, uri, entity = entity)
-        .flatMap(resp => Unmarshal(resp.entity).to[Json])
+        .flatMap(resp => Unmarshal(resp.entity).to[JValue])
         .futureValue
       result mustBe entity
     }
@@ -43,11 +45,11 @@ class SampleHttpClientTest extends TestKit(ActorSystem()) with FusionTestWordSpe
 
   override protected def beforeAll(): Unit = {
     import akka.http.scaladsl.server.Directives._
-    import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport._
+    import fusion.json.json4s.http.Json4sSupport._
     super.beforeAll()
     val route = pathPrefix("api") {
       (path("echo") & post) {
-        entity(as[Json]) { payload =>
+        entity(as[JValue]) { payload =>
           complete(payload)
         }
       }

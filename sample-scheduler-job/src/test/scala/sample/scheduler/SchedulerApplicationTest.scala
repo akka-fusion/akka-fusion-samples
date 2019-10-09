@@ -16,7 +16,7 @@ import sample.scheduler.route.SchedulerRoute
 import scala.concurrent.duration._
 
 class SchedulerApplicationTest extends FunSuite with ScalatestRouteTest with FusionTestSuite with BeforeAndAfterAll {
-  import sample.scheduler.util.CirceSupport._
+  import fusion.json.json4s.http.Json4sSupport._
   private val route = new SchedulerRoute(system).route
   implicit private val timeout = RouteTestTimeout(10.seconds)
 
