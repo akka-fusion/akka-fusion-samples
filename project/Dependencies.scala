@@ -1,16 +1,21 @@
 import sbt._
 
 object Dependencies {
-  val versionScala = "2.12.10"
-  val versionScalaLib = "2.12"
-  val versionAkka = "2.5.25"
-  val versionAkkaFusion = "1.0.0"
+  val versionScala = "2.13.1"
+  val versionScalaLib = "2.13"
+  val versionAkka = "2.6.0-RC1"
+  val versionAkkaFusion = "2.0.0-SNAPSHOT"
+  val versionAkkaHttp = "10.1.10"
   val versionJwtCore = "2.1.0"
   val versionMySQL = "8.0.16"
   val versionPostgres = "42.2.8"
   val versionCaffeine = "2.7.0"
   val versionSlickPg = "0.18.0"
   val versionJettyAlpnAgent = "2.0.9"
+
+  val _akkaHttpTestkit = ("com.typesafe.akka" %% "akka-http-testkit" % versionAkkaHttp)
+    .excludeAll(ExclusionRule("com.typesafe.akka"))
+    .cross(CrossVersion.binary)
   val _fusionHttp = "com.helloscala.fusion" %% "fusion-http" % versionAkkaFusion
   val _fusionHttpClient = "com.helloscala.fusion" %% "fusion-http-client" % versionAkkaFusion
   val _fusionHttpGateway = "com.helloscala.fusion" %% "fusion-http-gateway" % versionAkkaFusion
@@ -37,7 +42,7 @@ object Dependencies {
 
   val _akkaClusters =
     Seq(
-      "com.typesafe.akka" %% "akka-cluster" % versionAkka,
+      "com.typesafe.akka" %% "akka-cluster-typed" % versionAkka,
       "com.typesafe.akka" %% "akka-cluster-tools" % versionAkka,
       _akkaDiscovery)
 }

@@ -1,18 +1,16 @@
 package sample.jdbc
 
-import akka.actor.ActorSystem
-import akka.testkit.TestKit
+import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
 import fusion.jdbc.FusionJdbc
 import fusion.jdbc.JdbcTemplate
-import fusion.jdbc.util.JdbcUtils
 import fusion.test.FusionTestWordSpec
 import sample.jdbc.model.User
 
-class SampleJdbcTest extends TestKit(ActorSystem()) with FusionTestWordSpec {
+class SampleJdbcTest extends ScalaTestWithActorTestKit with FusionTestWordSpec {
   private val dataSource = FusionJdbc(system).component
   private val jdbcTemplate = JdbcTemplate(dataSource)
 
-  "Sample Jdbc Test" must {
+  "Sample Jdbc Test" should {
     "init" in {
       jdbcTemplate.update("""create table t_user(
           |  id bigserial primary key,
@@ -24,18 +22,18 @@ class SampleJdbcTest extends TestKit(ActorSystem()) with FusionTestWordSpec {
           |)""".stripMargin)
       jdbcTemplate.update("""insert into t_user(name, age, sex, description, created_at) values
           |('羊八井', 33, 1, '', now()),
-          |('杨景', 33, 1, '', now())""".stripMargin) mustBe 2
+          |('杨景', 33, 1, '', now())""".stripMargin) shouldBe 2
     }
 
     "count" in {
-      jdbcTemplate.count("select count(*) from t_user") mustBe 2
+      jdbcTemplate.count("select count(*) from t_user") shouldBe 2
     }
 
     "list" in {
       val list = jdbcTemplate.listForMap("select * from t_user", Nil)
-      list.size mustBe 2
+      list.size shouldBe 2
       val obj = list.head
-      obj.get("age") mustBe Some(33)
+      obj.get("age") shouldBe Some(33)
     }
 
     "query" in {
@@ -51,10 +49,10 @@ class SampleJdbcTest extends TestKit(ActorSystem()) with FusionTestWordSpec {
             Option(rs.getInt("sex")),
             Option(rs.getString("description")),
             rs.getTimestamp("created_at").toLocalDateTime))
-      maybeUser must not be empty
+      maybeUser should not be empty
       val user = maybeUser.value
-      user.age mustBe 33
-      user.sex mustBe Some(1)
+      user.age shouldBe 33
+      user.sex shouldBe Some(1)
     }
   }
 

@@ -3,7 +3,7 @@ package sample.grpc.service
 import java.time.OffsetDateTime
 
 import akka.NotUsed
-import akka.actor.ActorSystem
+import akka.actor.typed.ActorSystem
 import akka.grpc.scaladsl.Metadata
 import akka.stream.Materializer
 import akka.stream.scaladsl.Sink
@@ -14,8 +14,8 @@ import sample.HelloServicePowerApi
 
 import scala.concurrent.Future
 
-class HelloServiceImpl()(implicit system: ActorSystem, mat: Materializer) extends HelloServicePowerApi {
-  import system.dispatcher
+class HelloServiceImpl()(implicit system: ActorSystem[_], mat: Materializer) extends HelloServicePowerApi {
+  import system.executionContext
 
   override def sayHello(in: HelloDTO, metadata: Metadata): Future[HelloBO] = Future {
     HelloBO(in.name, "result")

@@ -1,6 +1,6 @@
 package sample.slick.schema
 
-import akka.actor.ActorSystem
+import akka.actor.typed.ActorSystem
 import fusion.jdbc.FusionJdbc
 import fusion.slick.FusionJdbcProfile
 import slick.jdbc.PostgresProfile
@@ -14,7 +14,7 @@ object CustomProfile extends CustomProfile
 
 import sample.slick.schema.CustomProfile.api._
 
-class SlickSchema(system: ActorSystem) extends PersonTable {
+class SlickSchema(system: ActorSystem[_]) extends PersonTable {
   val db = databaseForDataSource(FusionJdbc(system).component)
 
   val ddl = personTable.schema

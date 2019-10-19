@@ -1,5 +1,6 @@
 package sample.scheduler.service.job
 
+import akka.actor.typed.scaladsl.adapter._
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.ContentTypes
 import akka.http.scaladsl.model.HttpEntity
@@ -15,7 +16,7 @@ import org.json4s.JsonAST.JObject
 import org.quartz.JobExecutionContext
 import sample.scheduler.constant.JobConstants
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.util.Failure
 import scala.util.Success
 
@@ -32,7 +33,7 @@ class HongkaDefaultJob extends ScheduleJob with StrictLogging {
     val callback = dataMap.getOrElse(JobConstants.CALLBACK, "")
 
     if (StringUtils.isNoneBlank(callback) && callback.startsWith("http")) {
-      implicit val system = FusionUtils.actorSystem()
+      implicit val system = FusionUtils.actorSystem().toClassic
       import system.dispatcher
 
       val data = JObject(

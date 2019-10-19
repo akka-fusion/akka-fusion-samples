@@ -1,29 +1,28 @@
 package sample.http.gateway
 
-import akka.actor.ActorSystem
+import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
+import akka.actor.typed.scaladsl.adapter._
 import akka.http.scaladsl.model.HttpMethods
 import akka.http.scaladsl.model.HttpResponse
 import akka.http.scaladsl.model.StatusCodes
-import akka.stream.ActorMaterializer
-import akka.testkit.TestKit
+import akka.stream.Materializer
 import fusion.http.FusionHttpServer
 import fusion.http.client.DefaultHttpClient
 import fusion.test.FusionTestFunSuite
-import org.scalatest.BeforeAndAfterAll
 
-class SampleHttpGatewayApplicationTest extends TestKit(ActorSystem()) with FusionTestFunSuite with BeforeAndAfterAll {
-  implicit private val mat: ActorMaterializer = ActorMaterializer()
+class SampleHttpGatewayApplicationTest extends ScalaTestWithActorTestKit with FusionTestFunSuite {
+  implicit private val mat = Materializer(system)
 
   test("proxy success") {
     val uri = FusionHttpServer(system).component.buildUri("/api/hello")
-    val response = DefaultHttpClient(system).singleRequest(HttpMethods.POST, uri).futureValue
-    response.status mustBe StatusCodes.OK
+    val response = DefaultHttpClient(system.toClassic).singleRequest(HttpMethods.POST, uri).futureValue
+    response.status shouldBe StatusCodes.OK
   }
 
   test("proxy failure") {
     val uri = FusionHttpServer(system).component.buildUri("/not-exists/path")
-    val response = DefaultHttpClient(system).singleRequest(HttpMethods.POST, uri).futureValue
-    response.status mustBe StatusCodes.ServiceUnavailable
+    val response = DefaultHttpClient(system.toClassic).singleRequest(HttpMethods.POST, uri).futureValue
+    response.status shouldBe StatusCodes.ServiceUnavailable
   }
 
   override protected def beforeAll(): Unit = {

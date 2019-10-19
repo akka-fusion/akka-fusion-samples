@@ -26,10 +26,6 @@ object Commons {
           "-deprecation",
           "-unchecked",
           "-Xlint",
-          "-Yno-adapted-args", //akka-http heavily depends on adapted args and => Unit implicits break otherwise
-          "-Ypartial-unification",
-          "-opt:l:inline",
-          "-opt-inline-from",
           "-Ywarn-dead-code")
         if (scalaVersion.value.startsWith("2.12")) {
           list ++= Seq("-opt:l:inline", "-opt-inline-from")

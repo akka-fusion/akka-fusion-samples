@@ -1,35 +1,30 @@
 package sample.grpc
 
-import akka.actor.ActorSystem
+import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
 import akka.grpc.GrpcClientSettings
-import akka.stream.ActorMaterializer
 import akka.stream.Materializer
-import akka.testkit.TestKit
+import fusion.core.extension.FusionCore
 import fusion.http.FusionHttpServer
 import fusion.test.FusionTestWordSpec
-import org.scalatest.BeforeAndAfterAll
 import sample.HelloDTO
 import sample.HelloService
 import sample.HelloServiceClient
 
-class SampleGrpcApplicationTest
-    extends TestKit(ActorSystem("SampleGrpcApplication"))
-    with FusionTestWordSpec
-    with BeforeAndAfterAll {
-  import system.dispatcher
-  implicit private val mat: Materializer = ActorMaterializer()
+class SampleGrpcApplicationTest extends ScalaTestWithActorTestKit with FusionTestWordSpec {
+  implicit private val ec = system.executionContext
+  implicit private val mat: Materializer = Materializer(system)
 
-  "SampleGrpcApplication" must {
+  "SampleGrpcApplication" should {
     "sayHello" in {
       val dto = HelloDTO("Akka Fusion")
       val helloBO = HelloServiceClient(grpcClientSettings).sayHello(dto).futureValue
-      helloBO.name mustBe dto.name
-      helloBO.result must not be empty
+      helloBO.name shouldBe dto.name
+      helloBO.result should not be empty
     }
   }
 
   private def grpcClientSettings = {
-    GrpcClientSettings.fromConfig(HelloService.name)
+    GrpcClientSettings.fromConfig(HelloService.name)(FusionCore(system).classicSystem)
   }
 
   override protected def beforeAll(): Unit = {

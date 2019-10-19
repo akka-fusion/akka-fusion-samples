@@ -83,7 +83,9 @@ lazy val `sample-elasticsearch` =
   _project("sample-elasticsearch").dependsOn(`sample-common`).settings(libraryDependencies += _fusionElasticsearch)
 
 lazy val `sample-discovery` =
-  _project("sample-discovery").dependsOn(`sample-common`).settings(libraryDependencies ++= Seq(_fusionDiscoveryClient))
+  _project("sample-discovery")
+    .dependsOn(`sample-common`)
+    .settings(libraryDependencies ++= Seq(_fusionDiscoveryClient, _akkaHttpTestkit % Test))
 
 lazy val `sample-slick` =
   _project("sample-slick")
@@ -105,7 +107,8 @@ lazy val `sample-scheduler-job` = _project("sample-scheduler-job")
         "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf",
         _postgresql,
         _fusionHttp,
-        _fusionJob) ++ _akkaClusters)
+        _fusionJob,
+        _akkaHttpTestkit % Test) ++ _akkaClusters)
 
 lazy val `sample-grpc` = _project("sample-grpc")
   .dependsOn(`sample-common`)

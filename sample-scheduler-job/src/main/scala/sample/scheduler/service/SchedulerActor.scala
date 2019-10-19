@@ -4,6 +4,7 @@ import akka.Done
 import akka.actor.Actor
 import akka.actor.ActorLogging
 import akka.actor.Props
+import akka.actor.typed.scaladsl.adapter._
 import fusion.job.FusionJob
 import fusion.job.FusionScheduler
 import sample.scheduler.model._
@@ -12,7 +13,7 @@ class SchedulerActor extends Actor with SchedulerServiceComponent with ActorLogg
 
   override def preStart(): Unit = {
     super.preStart()
-    context.become(onMessage(FusionJob(context.system).component))
+    context.become(onMessage(FusionJob(context.system.toTyped).component))
     log.info("Scheduler actor startup.")
   }
 

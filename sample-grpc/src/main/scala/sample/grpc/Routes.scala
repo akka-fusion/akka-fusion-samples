@@ -1,12 +1,12 @@
 package sample.grpc
 
-import akka.actor.ActorSystem
+import akka.actor.typed.ActorSystem
 import akka.http.scaladsl.server.Route
 import com.typesafe.scalalogging.StrictLogging
 import fusion.http.server.AbstractRoute
 import fusion.http.server.GrpcUtils
 
-class Routes()(implicit system: ActorSystem) extends AbstractRoute with StrictLogging {
+class Routes()(implicit system: ActorSystem[_]) extends AbstractRoute with StrictLogging {
 
   private val grpcHandlers = GrpcUtils.contactToRoute(SampleGrpcAggregate(system).grpcHandlers: _*)
 
