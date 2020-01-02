@@ -21,7 +21,6 @@ import sample.scheduler.util.JobUtils
 import scala.jdk.CollectionConverters._
 
 trait SchedulerServiceComponent {
-
   def cancelJob(dto: JobCancelDTO)(implicit scheduler: FusionScheduler): ResultBO = {
     var ret = false
     dto.triggerKey.foreach { key =>

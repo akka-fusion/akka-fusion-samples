@@ -34,5 +34,4 @@ class SampleDiscoveryApplicationTest extends FusionTestWordSpec with ScalatestRo
                                             |    autoRegisterInstance = true
                                             |  }
                                             |}""".stripMargin
-
 }

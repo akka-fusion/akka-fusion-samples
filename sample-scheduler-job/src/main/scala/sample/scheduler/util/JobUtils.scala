@@ -15,7 +15,6 @@ import scala.jdk.CollectionConverters._
 import scala.concurrent.duration.Duration
 
 object JobUtils {
-
   def getTimesTriggered(trigger: Trigger): Long = {
     trigger match {
       case simple: SimpleTrigger => simple.getTimesTriggered
@@ -121,5 +120,4 @@ object JobUtils {
     }
     ss
   }
-
 }

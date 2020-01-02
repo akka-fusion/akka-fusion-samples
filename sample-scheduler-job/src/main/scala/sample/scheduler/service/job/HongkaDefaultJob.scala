@@ -21,7 +21,6 @@ import scala.util.Failure
 import scala.util.Success
 
 class HongkaDefaultJob extends ScheduleJob with StrictLogging {
-
   override def execute(context: JobExecutionContext): Unit = {
     performCallback(context)
   }
@@ -56,7 +55,5 @@ class HongkaDefaultJob extends ScheduleJob with StrictLogging {
           logger.error(s"向远程服务发送回调错误，[${detailTrigger(context)}] callback地址：$callback", e)
       }
     }
-
   }
-
 }

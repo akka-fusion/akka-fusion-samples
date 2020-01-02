@@ -37,5 +37,4 @@ class SampleHttpGatewayApplicationTest extends ScalaTestWithActorTestKit with Fu
     FusionHttpServer(system).components.lookup("sample.http1").startRouteSync(route)
     FusionHttpServer(system).components.lookup("sample.http2").startRouteSync(route)
   }
-
 }

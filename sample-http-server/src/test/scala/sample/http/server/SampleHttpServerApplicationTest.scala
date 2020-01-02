@@ -5,7 +5,6 @@ import fusion.http.FusionHttpServer
 import fusion.test.FusionTestFunSuite
 
 class SampleHttpServerApplicationTest extends ScalaTestWithActorTestKit with FusionTestFunSuite {
-
   test("testSocketAddress") {
     val socketAddress = FusionHttpServer(system).component.socketAddress
     socketAddress.getPort shouldBe 8000
@@ -17,5 +16,4 @@ class SampleHttpServerApplicationTest extends ScalaTestWithActorTestKit with Fus
     super.beforeAll()
     FusionHttpServer(system).component.startAbstractRouteSync(new Routes())
   }
-
 }

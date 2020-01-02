@@ -6,9 +6,7 @@ ThisBuild / scalaVersion := Dependencies.versionScala
 
 ThisBuild / scalafmtOnCompile := true
 
-ThisBuild / resolvers ++= Seq(
-  "hongkazhijia.com sbt-release".at("https://artifactory.hongkazhijia.com/artifactory/sbt-release"),
-  "hongkazhijia.com libs-release".at("https://artifactory.hongkazhijia.com/artifactory/libs-release"))
+ThisBuild / resolvers += "Bintray akka-fusion".at("https://akka-fusion.bintray.com/maven")
 
 lazy val root =
   Project("akka-fusion-samples", file("."))

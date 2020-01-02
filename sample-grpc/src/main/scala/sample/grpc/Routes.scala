@@ -7,7 +7,6 @@ import fusion.http.server.AbstractRoute
 import fusion.http.server.GrpcUtils
 
 class Routes()(implicit system: ActorSystem[_]) extends AbstractRoute with StrictLogging {
-
   private val grpcHandlers = GrpcUtils.contactToRoute(SampleGrpcAggregate(system).grpcHandlers: _*)
 
   override def route: Route = grpcRoute

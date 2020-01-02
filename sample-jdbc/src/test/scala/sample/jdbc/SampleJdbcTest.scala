@@ -55,5 +55,4 @@ class SampleJdbcTest extends ScalaTestWithActorTestKit with FusionTestWordSpec {
       user.sex shouldBe Some(1)
     }
   }
-
 }

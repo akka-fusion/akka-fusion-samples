@@ -5,7 +5,6 @@ import fusion.http.FusionHttpServer
 import helloscala.common.Configuration
 
 object SampleHttpGatewayApplication {
-
   def main(args: Array[String]): Unit = {
     val configuration = Configuration.fromDiscovery()
     val system = FusionUtils.createActorSystem(configuration)

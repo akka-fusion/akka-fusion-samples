@@ -48,5 +48,4 @@ class SchedulerRoute(system: ActorSystem[_]) extends AbstractRoute {
       complete(schedulerService.getJob(Key(group, name)))
     }
   }
-
 }

@@ -2,8 +2,7 @@ package sample.grpc
 
 import akka.actor.typed.ActorSystem
 import akka.stream.Materializer
-import fusion.core.extension.FusionExtension
-import fusion.core.extension.FusionExtensionId
+import fusion.common.extension.{ FusionExtension, FusionExtensionId }
 import sample.HelloServicePowerApi
 import sample.HelloServicePowerApiHandler
 import sample.grpc.service.HelloServiceImpl

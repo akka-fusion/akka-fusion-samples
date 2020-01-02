@@ -26,5 +26,4 @@ class Routes(system: ActorSystem[_]) extends AbstractRoute {
       complete(response)
     }
   }
-
 }

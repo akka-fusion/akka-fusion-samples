@@ -13,5 +13,4 @@ class InitTablesTest extends ScalaTestWithActorTestKit with FusionTestFunSuite {
     val sqlText = scala.io.Source.fromResource("sql/scheduler.sql").getLines().mkString("\n")
     jdbcTemplate.update(sqlText)
   }
-
 }

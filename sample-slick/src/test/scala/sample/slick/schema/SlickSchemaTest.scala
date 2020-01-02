@@ -65,5 +65,4 @@ class SlickSchemaTest extends ScalaTestWithActorTestKit with FusionTestWordSpec 
       db.run(personTable.size.result).futureValue shouldBe 0
     }
   }
-
 }

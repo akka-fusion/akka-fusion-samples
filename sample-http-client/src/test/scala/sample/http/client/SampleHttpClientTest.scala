@@ -57,5 +57,4 @@ class SampleHttpClientTest extends ScalaTestWithActorTestKit with FusionTestWord
     }
     FusionHttpServer(system).component.startRouteSync(route)
   }
-
 }
