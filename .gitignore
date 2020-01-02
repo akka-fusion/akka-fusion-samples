@@ -267,3 +267,6 @@ hk-docs/docs/.vuepress/dist/
 /.scannerwork/
 *.log
 /logs/
+.metals/
+.bloop/
+.vscode/

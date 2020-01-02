@@ -18,10 +18,9 @@ import sample.scheduler.model.Key
 import sample.scheduler.service.job.HongkaDefaultJob
 import sample.scheduler.util.JobUtils
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 trait SchedulerServiceComponent {
-
   def cancelJob(dto: JobCancelDTO)(implicit scheduler: FusionScheduler): ResultBO = {
     var ret = false
     dto.triggerKey.foreach { key =>

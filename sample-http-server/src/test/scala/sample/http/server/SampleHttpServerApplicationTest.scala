@@ -1,16 +1,13 @@
 package sample.http.server
 
-import akka.actor.ActorSystem
-import akka.testkit.TestKit
+import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
 import fusion.http.FusionHttpServer
 import fusion.test.FusionTestFunSuite
-import org.scalatest.BeforeAndAfterAll
 
-class SampleHttpServerApplicationTest extends TestKit(ActorSystem()) with FusionTestFunSuite with BeforeAndAfterAll {
-
+class SampleHttpServerApplicationTest extends ScalaTestWithActorTestKit with FusionTestFunSuite {
   test("testSocketAddress") {
     val socketAddress = FusionHttpServer(system).component.socketAddress
-    socketAddress.getPort mustBe 8000
+    socketAddress.getPort shouldBe 8000
   }
 
   test("testMain") {}
@@ -19,9 +16,4 @@ class SampleHttpServerApplicationTest extends TestKit(ActorSystem()) with Fusion
     super.beforeAll()
     FusionHttpServer(system).component.startAbstractRouteSync(new Routes())
   }
-
-  override protected def afterAll(): Unit = {
-    super.afterAll()
-  }
-
 }

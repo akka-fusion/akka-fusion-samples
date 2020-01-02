@@ -6,9 +6,7 @@ ThisBuild / scalaVersion := Dependencies.versionScala
 
 ThisBuild / scalafmtOnCompile := true
 
-ThisBuild / resolvers ++= Seq(
-  "hongkazhijia.com sbt-release".at("https://artifactory.hongkazhijia.com/artifactory/sbt-release"),
-  "hongkazhijia.com libs-release".at("https://artifactory.hongkazhijia.com/artifactory/libs-release"))
+ThisBuild / resolvers += "Bintray akka-fusion".at("https://akka-fusion.bintray.com/maven")
 
 lazy val root =
   Project("akka-fusion-samples", file("."))
@@ -83,7 +81,9 @@ lazy val `sample-elasticsearch` =
   _project("sample-elasticsearch").dependsOn(`sample-common`).settings(libraryDependencies += _fusionElasticsearch)
 
 lazy val `sample-discovery` =
-  _project("sample-discovery").dependsOn(`sample-common`).settings(libraryDependencies ++= Seq(_fusionDiscoveryClient))
+  _project("sample-discovery")
+    .dependsOn(`sample-common`)
+    .settings(libraryDependencies ++= Seq(_fusionDiscoveryClient, _akkaHttpTestkit % Test))
 
 lazy val `sample-slick` =
   _project("sample-slick")
@@ -105,7 +105,8 @@ lazy val `sample-scheduler-job` = _project("sample-scheduler-job")
         "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf",
         _postgresql,
         _fusionHttp,
-        _fusionJob) ++ _akkaClusters)
+        _fusionJob,
+        _akkaHttpTestkit % Test) ++ _akkaClusters)
 
 lazy val `sample-grpc` = _project("sample-grpc")
   .dependsOn(`sample-common`)

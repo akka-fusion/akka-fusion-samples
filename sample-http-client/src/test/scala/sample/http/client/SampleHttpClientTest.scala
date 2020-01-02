@@ -1,11 +1,11 @@
 package sample.http.client
 
-import akka.actor.ActorSystem
+import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
+import akka.actor.typed.scaladsl.adapter._
 import akka.http.scaladsl.model.HttpMethods
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.unmarshalling.Unmarshal
-import akka.stream.ActorMaterializer
-import akka.testkit.TestKit
+import akka.stream.Materializer
 import fusion.http.FusionHttpServer
 import fusion.http.client.DefaultHttpClient
 import fusion.json.jackson.Jackson
@@ -15,21 +15,21 @@ import org.json4s.JsonAST.JString
 import org.json4s.JsonAST.JValue
 import org.scalatest.BeforeAndAfterAll
 
-class SampleHttpClientTest extends TestKit(ActorSystem()) with FusionTestWordSpec with BeforeAndAfterAll {
-  implicit private val mat: ActorMaterializer = ActorMaterializer()
-  import system.dispatcher
+class SampleHttpClientTest extends ScalaTestWithActorTestKit with FusionTestWordSpec with BeforeAndAfterAll {
+  implicit private val mat = Materializer(system)
+  implicit private val ec = system.executionContext
 
-  "HttpClient echo" must {
+  "HttpClient echo" should {
     "Ok" in {
       import fusion.json.json4s.http.Json4sSupport._
       val socketAddress = FusionHttpServer(system).component.socketAddress
       val uri = s"http://${socketAddress.getAddress.getHostAddress}:${socketAddress.getPort}/api/echo"
       val entity = JObject("hello" -> JString("world"))
-      val result = DefaultHttpClient(system)
+      val result = DefaultHttpClient(system.toClassic)
         .singleRequest(HttpMethods.POST, uri, entity = entity)
         .flatMap(resp => Unmarshal(resp.entity).to[JValue])
         .futureValue
-      result mustBe entity
+      result shouldBe entity
     }
 
     "NotFound" in {
@@ -38,8 +38,9 @@ class SampleHttpClientTest extends TestKit(ActorSystem()) with FusionTestWordSpe
       val uri = s"http://${socketAddress.getAddress.getHostAddress}:${socketAddress.getPort}/api/not-found"
       val entity = Jackson.createObjectNode
       entity.put("hello", "world")
-      val response = DefaultHttpClient(system).singleRequest(HttpMethods.POST, uri, entity = entity).futureValue
-      response.status mustBe StatusCodes.NotFound
+      val response =
+        DefaultHttpClient(system.toClassic).singleRequest(HttpMethods.POST, uri, entity = entity).futureValue
+      response.status shouldBe StatusCodes.NotFound
     }
   }
 
@@ -56,5 +57,4 @@ class SampleHttpClientTest extends TestKit(ActorSystem()) with FusionTestWordSpe
     }
     FusionHttpServer(system).component.startRouteSync(route)
   }
-
 }

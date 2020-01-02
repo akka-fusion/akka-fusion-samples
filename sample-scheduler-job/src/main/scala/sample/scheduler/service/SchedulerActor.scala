@@ -1,18 +1,18 @@
 package sample.scheduler.service
 
 import akka.Done
-import akka.actor.Actor
-import akka.actor.ActorLogging
-import akka.actor.Props
-import fusion.job.FusionJob
-import fusion.job.FusionScheduler
+import akka.actor.{ Actor, ActorLogging, Props }
+import akka.actor.typed.scaladsl.adapter._
+import fusion.job.{ FusionJob, FusionScheduler }
 import sample.scheduler.model._
 
+/**
+ * TODO 待重构，若参考 fusion-schedulerx
+ */
 class SchedulerActor extends Actor with SchedulerServiceComponent with ActorLogging {
-
   override def preStart(): Unit = {
     super.preStart()
-    context.become(onMessage(FusionJob(context.system).component))
+    context.become(onMessage(FusionJob(context.system.toTyped).component))
     log.info("Scheduler actor startup.")
   }
 
@@ -41,7 +41,6 @@ class SchedulerActor extends Actor with SchedulerServiceComponent with ActorLogg
       sender() ! Done
       context.stop(self)
   }
-
 }
 
 object SchedulerActor {

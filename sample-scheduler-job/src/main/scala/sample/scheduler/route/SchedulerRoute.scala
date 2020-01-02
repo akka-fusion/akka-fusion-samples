@@ -1,16 +1,12 @@
 package sample.scheduler.route
 
-import akka.actor.ActorSystem
+import akka.actor.typed.ActorSystem
 import akka.http.scaladsl.server.Route
 import fusion.http.server.AbstractRoute
 import sample.scheduler.SchedulerAggregate
-import sample.scheduler.model.JobCancelDTO
-import sample.scheduler.model.JobDTO
-import sample.scheduler.model.JobPauseDTO
-import sample.scheduler.model.JobResumeDTO
-import sample.scheduler.model.Key
+import sample.scheduler.model._
 
-class SchedulerRoute(system: ActorSystem) extends AbstractRoute {
+class SchedulerRoute(system: ActorSystem[_]) extends AbstractRoute {
   private val schedulerService = SchedulerAggregate(system).schedulerService
 
   override def route: Route = pathPrefix("scheduler") {
@@ -52,5 +48,4 @@ class SchedulerRoute(system: ActorSystem) extends AbstractRoute {
       complete(schedulerService.getJob(Key(group, name)))
     }
   }
-
 }

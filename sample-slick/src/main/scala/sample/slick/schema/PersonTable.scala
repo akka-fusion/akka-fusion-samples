@@ -6,7 +6,6 @@ import sample.slick.model.Person
 import sample.slick.schema.CustomProfile.api._
 
 trait PersonTable {
-
   class PersonTable(tag: Tag) extends Table[Person](tag, "t_person") {
     val id = column[Long]("id", O.AutoInc, O.PrimaryKey)
     val name = column[String]("name")

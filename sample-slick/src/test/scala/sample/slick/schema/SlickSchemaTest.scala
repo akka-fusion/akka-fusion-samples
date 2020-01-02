@@ -3,21 +3,20 @@ package sample.slick.schema
 import java.sql.Timestamp
 import java.time.Instant
 
-import akka.actor.ActorSystem
-import akka.testkit.TestKit
+import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
 import fusion.test.FusionTestWordSpec
 import helloscala.common.exception.HSNotFoundException
 import sample.slick.model.Person
 
-class SlickSchemaTest extends TestKit(ActorSystem()) with FusionTestWordSpec {
+class SlickSchemaTest extends ScalaTestWithActorTestKit with FusionTestWordSpec {
   private val schema = new SlickSchema(system)
   import sample.slick.schema.CustomProfile.api._
   import schema._
 
-  "ddl" must {
+  "ddl" should {
     "print" in {
       val ddls = schema.ddl.createStatements.toList
-      ddls must not be empty
+      ddls should not be empty
       ddls.foreach(println)
     }
     "execute" in {
@@ -25,26 +24,26 @@ class SlickSchemaTest extends TestKit(ActorSystem()) with FusionTestWordSpec {
     }
   }
 
-  "dml" must {
+  "dml" should {
     val now = Timestamp.from(Instant.now())
 
     "insert" in {
       val action = personTable += Person(0, "羊八井", createdAt = now)
-      db.run(action.transactionally).futureValue mustBe 1
+      db.run(action.transactionally).futureValue shouldBe 1
     }
 
     "query" in {
       val query = personTable.filter(t => t.name === "羊八井").result.headOption
       val maybe = db.run(query).futureValue
-      maybe must not be empty
+      maybe should not be empty
       val person = maybe.value
-      person.id mustBe 1
-      person.name mustBe "羊八井"
-      person.createdAt mustBe now
+      person.id shouldBe 1
+      person.name shouldBe "羊八井"
+      person.createdAt shouldBe now
     }
 
     "update" in {
-      import system.dispatcher
+      implicit val ec = system.executionContext
       val id = 1L
       val query = personTable.filter(_.id === id)
       val action = query.result.headOption.flatMap {
@@ -54,17 +53,16 @@ class SlickSchemaTest extends TestKit(ActorSystem()) with FusionTestWordSpec {
         case _ => DBIO.failed(HSNotFoundException(s"用户未找到，ID: $id"))
       }
       val ret = db.run(action.transactionally).futureValue
-      ret mustBe 1
+      ret shouldBe 1
     }
 
     "delete" in {
       val ret = db.run(personTable.filter(_.id === 1L).delete.transactionally).futureValue
-      ret mustBe 1
+      ret shouldBe 1
     }
 
     "count" in {
-      db.run(personTable.size.result).futureValue mustBe 0
+      db.run(personTable.size.result).futureValue shouldBe 0
     }
   }
-
 }
